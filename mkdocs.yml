@@ -1,0 +1,6 @@
+site_name: Metadata Publisher
+pages:
+- Home: index.md
+- SPEC: SPEC-metadata-publisher.md
+
+
