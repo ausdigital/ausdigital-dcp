@@ -1,6 +1,6 @@
 # Metadata Publisher
 
-The [Ausustralian Digital Business Council](https://ausdigital.org) provides open B2B standards for eInvoicing.
+The [Ausustralian Digital Business Council](https://https://ausdigital.github.io/) provides open B2B standards for eInvoicing.
 
 These require:
 
