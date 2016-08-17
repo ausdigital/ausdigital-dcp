@@ -11,7 +11,7 @@ These require:
 
 Those requirements are met by a component called the [Service Metadata Publisher](/SPEC-metadata-publisher/).
 
-Implementations must provide a compliant [REST interface](https://swaggerhub.com/api/ausdigital/smp/0.1),
+Implementations must provide a compliant interface. The [REST interface v0.1](https://swaggerhub.com/api/ausdigital/smp/0.1) is drafted and available for comment.,
 
 This spec is RAW status, and is beind developed with the [Consensus Oriented Specification System](http://rfc.unprotocols.org/spec:2/COSS/)
 through a [social repository](https://github.com/ausdigital/metadata-publisher). Contributions welcome!
