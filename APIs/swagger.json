@@ -1,9 +1,9 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "version" : "0.1",
-    "title" : "Service Metadata Publisher",
-    "description" : "REST API implementation of Service Metadata Publisher"
+    "version" : "1.0",
+    "title" : "Service Metadata Publisher (SMP) interface specification",
+    "description" : "The \"Service Metadata Publisher\" (SMP) provides the ability to discover detailed service information and associated digital certificates for any given business identifier."
   },
   "host" : "api.smp.com",
   "schemes" : [ "https" ],
