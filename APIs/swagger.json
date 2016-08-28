@@ -3,93 +3,145 @@
   "info" : {
     "version" : "1.0",
     "title" : "Service Metadata Publisher (SMP) interface specification",
-    "description" : "The \"Service Metadata Publisher\" (SMP) provides the ability to discover detailed service information and associated digital certificates for any given business identifier."
+    "description" : "The \"Service Metadata Publisher\" (SMP) provides the ability to discover detailed service information and associated digital certificates for any given business identifier.<br/> Please consider test installation data validty - some of them have like-production data, but this data value is not guaranteed and may be changed in development purposes; do not rely on data from specific hostname to real-world production installation untill service owners specifically said it's true and valid.<br/> This API specification should be valid for all supporting installations and implementations.<br/><br/> By the way, true OASIS XML compliant requests are supported as well, but not documented yet - its a big TODO.<br/> https://smp.testpoint.io/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307?format=xml<br/> https://smp.testpoint.io/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307/service/dbc::invoice?format=xml<br/> (use format-xml param or send application/xml Accept header)"
   },
-  "host" : "api.smp.com",
-  "schemes" : [ "https" ],
-  "basePath" : "/v1",
+  "host" : "smp.testpoint.io",
+  "schemes" : [ "https", "http" ],
+  "basePath" : "/api/v1",
   "securityDefinitions" : {
-    "apikey" : {
-      "type" : "apiKey",
-      "name" : "server_token",
-      "in" : "header"
+    "bearer" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "http://idp.testpoint.io/authorize",
+      "flow" : "implicit",
+      "description" : "may be found on /security/inge"
     }
   },
-  "produces" : [ "application/json" ],
+  "produces" : [ "application/json", "application/xml", "text/html" ],
+  "parameters" : {
+    "participantIdUrlParameter" : {
+      "name" : "participant_id",
+      "in" : "path",
+      "description" : "string representation or hash",
+      "required" : true,
+      "type" : "string",
+      "default" : "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307"
+    },
+    "serviceIdUrlParameter" : {
+      "name" : "id",
+      "in" : "path",
+      "description" : "ID of service metadata, string or hash",
+      "required" : true,
+      "type" : "string",
+      "default" : "dbc::invoice"
+    }
+  },
   "paths" : {
-    "/services" : {
+    "/businesses" : {
       "get" : {
-        "summary" : "List all service groups",
-        "description" : "The service group returns a list of service metadata entry points.  This service is optional and is typically used when the client does not have a-priori knowledge of which services the business supports.",
+        "summary" : "Full list of participants (businesses) in system",
+        "description" : "Returns a list of participants, optionally filtered; with optional facets values (for better search experience).",
         "parameters" : [ {
-          "name" : "abn",
+          "name" : "show_facets",
           "in" : "query",
-          "description" : "abn to filter by",
+          "description" : "shall facets real values be returned (1) or just empty dict (0)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "Freetext value to search by; proxied to search backend, current words behaviour - OR",
           "required" : false,
           "type" : "string"
         }, {
-          "name" : "duns",
+          "name" : "entity_type",
           "in" : "query",
-          "description" : "duns to filter by",
+          "description" : "Entity type; check 'facets' output for possible values; requires exact match",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "location_state",
+          "in" : "query",
+          "description" : "Location.state value; exact match; check 'facets' for examples",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "registration_status",
+          "in" : "query",
+          "description" : "ACT or CAN",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "year_from",
+          "in" : "query",
+          "description" : "Minimal year value (inclusive) to filter search results",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "year_to",
+          "in" : "query",
+          "description" : "Maximal year value (inclusive) to filter search results",
+          "required" : false,
+          "type" : "number"
         } ],
-        "operationId" : "findServiceGroups",
+        "operationId" : "getBusinessesList",
         "responses" : {
           "200" : {
-            "description" : "An array of service metadata",
+            "description" : "list of participant ids",
             "schema" : {
-              "$ref" : "#/definitions/ServiceGroup"
+              "$ref" : "#/definitions/BusinessesList"
             }
+          },
+          "400" : {
+            "description" : "wrong filters or limits values."
           },
           "406" : {
             "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
           },
           "500" : {
-            "description" : "Any appropriate HTTP server error"
-          }
-        }
-      },
-      "post" : {
-        "summary" : "Create a service metdata",
-        "description" : "Create an entry for a participant in the capability publisher",
-        "operationId" : "addServiceGroup",
-        "security" : [ {
-          "apikey" : [ ]
-        } ],
-        "parameters" : [ {
-          "name" : "metadata",
-          "in" : "body",
-          "description" : "Service metadata to be added",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/NewServiceMetaData"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
+            "description" : "internal server error; no action required; may help to retry request later or contact support."
           }
         }
       }
     },
-    "/services/{id}" : {
+    "/business/{participant_id}" : {
       "get" : {
-        "summary" : "get a service metdata",
-        "description" : "Returns a service metadata based on a single ID",
-        "operationId" : "getServiceGroup",
+        "summary" : "Participant ID (business) info",
+        "description" : "List of service groups, service endponts and generic data about given participant.",
         "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of service metadata",
-          "required" : true,
-          "type" : "string"
+          "$ref" : "#/parameters/participantIdUrlParameter"
+        } ],
+        "operationId" : "getBusinessDetail",
+        "responses" : {
+          "200" : {
+            "description" : "An array of service metadata",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessDetail"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "500" : {
+            "description" : "Any appropriate HTTP server error"
+          }
+        }
+      }
+    },
+    "/business/{participant_id}/service/{id}" : {
+      "get" : {
+        "summary" : "get a specific service metadata",
+        "description" : "Returns a service metadata based on a single ID for given participant",
+        "operationId" : "getServiceMetadata",
+        "parameters" : [ {
+          "$ref" : "#/parameters/participantIdUrlParameter"
+        }, {
+          "$ref" : "#/parameters/serviceIdUrlParameter"
         } ],
         "responses" : {
           "200" : {
             "description" : "service metadata response",
             "schema" : {
-              "$ref" : "#/definitions/ServiceMetaData"
+              "$ref" : "#/definitions/ServiceMetadata"
             }
           },
           "404" : {
@@ -103,19 +155,52 @@
           }
         }
       },
-      "delete" : {
-        "summary" : "delete a service metdata",
-        "description" : "deletes a single service metadata based on the ID supplied",
-        "operationId" : "deleteServiceGroup",
+      "put" : {
+        "summary" : "put (create/replace) specific service metadata",
+        "description" : "Inserts a single service metadata values into the storage",
+        "operationId" : "putServiceMetadata",
         "security" : [ {
-          "apikey" : [ ]
+          "bearer" : [ ]
         } ],
         "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of service metadata to delete",
+          "$ref" : "#/parameters/participantIdUrlParameter"
+        }, {
+          "$ref" : "#/parameters/serviceIdUrlParameter"
+        }, {
+          "description" : "New service metadata",
+          "in" : "body",
+          "name" : "body",
           "required" : true,
-          "type" : "string"
+          "schema" : {
+            "$ref" : "#/definitions/ServiceMetadata"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "404" : {
+            "description" : "Participant Not Found"
+          },
+          "406" : {
+            "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
+          },
+          "500" : {
+            "description" : "Any appropriate HTTP server error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "delete specific service metadata",
+        "description" : "deletes a single service metadata based on the ID supplied; available only to participant/service owner or trusted person",
+        "operationId" : "deleteServiceMetadata",
+        "security" : [ {
+          "bearer" : [ ]
+        } ],
+        "parameters" : [ {
+          "$ref" : "#/parameters/participantIdUrlParameter"
+        }, {
+          "$ref" : "#/parameters/serviceIdUrlParameter"
         } ],
         "responses" : {
           "204" : {
@@ -135,31 +220,139 @@
     }
   },
   "definitions" : {
-    "ServiceGroup" : {
+    "BusinessesList" : {
       "properties" : {
-        "ServiceMetaData" : {
+        "facets" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/ServiceMetaData"
+            "$ref" : "#/definitions/FacetInfo"
           }
         },
-        "Signature" : {
-          "type" : "string"
+        "start_from" : {
+          "type" : "number"
+        },
+        "limit" : {
+          "type" : "number"
+        },
+        "total" : {
+          "type" : "number",
+          "description" : "exact count of found documents frr this query"
+        },
+        "businesses" : {
+          "description" : "list of found participants",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/BusinessInfo"
+          }
         }
       }
     },
-    "ServiceMetaData" : {
-      "allOf" : [ {
-        "$ref" : "#/definitions/NewServiceMetaData"
-      } ],
+    "BusinessDetail" : {
       "properties" : {
-        "id" : {
-          "description" : "Unique identifier for service metadata",
+        "business" : {
+          "$ref" : "#/definitions/BusinessDataWrapper"
+        },
+        "services" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ServiceMetadata"
+          }
+        },
+        "service_groups" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ServiceGroup"
+          }
+        }
+      }
+    },
+    "BusinessDataWrapper" : {
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/BusinessInfo"
+        }
+      }
+    },
+    "BusinessInfo" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "entity_type" : {
+          "type" : "string"
+        },
+        "id_type" : {
+          "type" : "string"
+        },
+        "id_value" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "location" : {
+          "$ref" : "#/definitions/Location"
+        },
+        "participant_ids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "individual_names" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "non_individual_names" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "Location" : {
+      "properties" : {
+        "country" : {
+          "type" : "string"
+        },
+        "state" : {
+          "type" : "string"
+        },
+        "postcode" : {
           "type" : "string"
         }
       }
     },
-    "NewServiceMetaData" : {
+    "FacetInfo" : {
+      "properties" : {
+        "facetName" : {
+          "type" : "string"
+        },
+        "facetContent" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ServiceGroup" : {
+      "properties" : {
+        "ServiceMetadataReferenceCollection" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "Extensions" : {
+          "type" : "string"
+        },
+        "Name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ServiceMetadata" : {
       "required" : [ "ParticipantIdentifier" ],
       "properties" : {
         "ParticipantIdentifier" : {
