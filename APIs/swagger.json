@@ -12,8 +12,8 @@
     "Bearer" : {
       "type" : "oauth2",
       "authorizationUrl" : "http://idp.testpoint.io/authorize",
-      "flow" : "implicit",
-      "description" : "may be found on /security/inge"
+      "flow" : "accessCode",
+      "description" : "Bearer token value and raw JWT token may be found on /security/integration/"
     }
   },
   "produces" : [ "application/json", "application/xml", "text/html" ],
