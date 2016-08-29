@@ -9,7 +9,7 @@
   "schemes" : [ "https", "http" ],
   "basePath" : "/api/v1",
   "securityDefinitions" : {
-    "bearer" : {
+    "Bearer" : {
       "type" : "oauth2",
       "authorizationUrl" : "http://idp.testpoint.io/authorize",
       "flow" : "implicit",
@@ -47,7 +47,10 @@
           "401" : {
             "description" : "wrong auth parameters"
           }
-        }
+        },
+        "security" : [ {
+          "Bearer" : [ ]
+        } ]
       }
     },
     "/businesses" : {
@@ -174,7 +177,7 @@
         "description" : "Inserts a single service metadata values into the storage",
         "operationId" : "putServiceMetadata",
         "security" : [ {
-          "bearer" : [ ]
+          "Bearer" : [ ]
         } ],
         "parameters" : [ {
           "$ref" : "#/parameters/participantIdUrlParameter"
@@ -209,7 +212,7 @@
         "description" : "deletes a single service metadata based on the ID supplied; available only to participant/service owner or trusted person",
         "operationId" : "deleteServiceMetadata",
         "security" : [ {
-          "bearer" : [ ]
+          "Bearer" : [ ]
         } ],
         "parameters" : [ {
           "$ref" : "#/parameters/participantIdUrlParameter"
