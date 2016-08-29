@@ -249,10 +249,7 @@
     "BusinessesList" : {
       "properties" : {
         "facets" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/FacetInfo"
-          }
+          "$ref" : "#/definitions/FacetInfo"
         },
         "start_from" : {
           "type" : "number"
