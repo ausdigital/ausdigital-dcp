@@ -7,7 +7,7 @@
   },
   "host" : "smp.testpoint.io",
   "schemes" : [ "https", "http" ],
-  "basePath" : "/api/v1",
+  "basePath" : "/api/v0",
   "securityDefinitions" : {
     "Bearer" : {
       "type" : "oauth2",
