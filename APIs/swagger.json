@@ -13,8 +13,7 @@
       "type" : "oauth2",
       "authorizationUrl" : "http://idp.testpoint.io/authorize",
       "flow" : "implicit",
-      "description" : "may be found on /security/inge",
-      "name" : "Authorization"
+      "description" : "may be found on /security/inge"
     }
   },
   "produces" : [ "application/json", "application/xml", "text/html" ],
