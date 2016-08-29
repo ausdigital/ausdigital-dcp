@@ -13,7 +13,6 @@
       "type" : "oauth2",
       "authorizationUrl" : "http://idp.testpoint.io/authorize",
       "flow" : "implicit",
-      "tokenUrl" : "http://idp.testpoint.io/token",
       "description" : "Bearer token value and raw JWT token may be found on /security/integration/"
     }
   },
