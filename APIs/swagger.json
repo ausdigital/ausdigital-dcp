@@ -78,7 +78,7 @@
         }, {
           "name" : "location_state",
           "in" : "query",
-          "description" : "Location.state value; exact match; check 'facets' for examples",
+          "description" : "Location.state value; check 'facets' output for possible values; requires exact match",
           "required" : false,
           "type" : "string"
         }, {
@@ -103,13 +103,13 @@
         "operationId" : "getBusinessesList",
         "responses" : {
           "200" : {
-            "description" : "list of participant ids",
+            "description" : "list of participants with basic information",
             "schema" : {
               "$ref" : "#/definitions/BusinessesList"
             }
           },
           "400" : {
-            "description" : "wrong filters or limits values."
+            "description" : "wrong filters values or limits."
           },
           "406" : {
             "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
@@ -130,24 +130,24 @@
         "operationId" : "getBusinessDetail",
         "responses" : {
           "200" : {
-            "description" : "An array of service metadata",
+            "description" : "Participant Information",
             "schema" : {
               "$ref" : "#/definitions/BusinessDetail"
             }
           },
           "404" : {
-            "description" : "Not found"
+            "description" : "Participant Not found"
           },
           "500" : {
-            "description" : "Any appropriate HTTP server error"
+            "description" : "Internal server error"
           }
         }
       }
     },
     "/business/{participant_id}/service/{id}" : {
       "get" : {
-        "summary" : "get a specific service metadata",
-        "description" : "Returns a service metadata based on a single ID for given participant",
+        "summary" : "Specific service metadata",
+        "description" : "Returns a service metadata based on a single id for given participant",
         "operationId" : "getServiceMetadata",
         "parameters" : [ {
           "$ref" : "#/parameters/participantIdUrlParameter"
@@ -156,7 +156,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "service metadata response",
+            "description" : "Service metadata response",
             "schema" : {
               "$ref" : "#/definitions/ServiceMetadata"
             }
@@ -168,13 +168,13 @@
             "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
           },
           "500" : {
-            "description" : "Any appropriate HTTP server error"
+            "description" : "Internal Server Error"
           }
         }
       },
       "put" : {
         "summary" : "put (create/replace) specific service metadata",
-        "description" : "Inserts a single service metadata values into the storage",
+        "description" : "Inserts a single service metadata values into the storage, replaces the old one (if exists)",
         "operationId" : "putServiceMetadata",
         "security" : [ {
           "Bearer" : [ ]
@@ -196,6 +196,12 @@
           "201" : {
             "description" : "Created"
           },
+          "400" : {
+            "description" : "Wrong input format, most likely the service metadata is malformed"
+          },
+          "401" : {
+            "description" : "Authorization required"
+          },
           "404" : {
             "description" : "Participant Not Found"
           },
@@ -203,13 +209,13 @@
             "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
           },
           "500" : {
-            "description" : "Any appropriate HTTP server error"
+            "description" : "Internal Server Error"
           }
         }
       },
       "delete" : {
-        "summary" : "delete specific service metadata",
-        "description" : "deletes a single service metadata based on the ID supplied; available only to participant/service owner or trusted person",
+        "summary" : "Delete specific service metadata",
+        "description" : "Deletes a single service metadata based on the id supplied; available only to participant/service owner or trusted person.",
         "operationId" : "deleteServiceMetadata",
         "security" : [ {
           "Bearer" : [ ]
@@ -223,6 +229,9 @@
           "204" : {
             "description" : "service metadata deleted"
           },
+          "401" : {
+            "description" : "Authorization required"
+          },
           "404" : {
             "description" : "Not Found"
           },
@@ -230,7 +239,7 @@
             "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
           },
           "500" : {
-            "description" : "Any appropriate HTTP server error"
+            "description" : "Internal Server Error"
           }
         }
       }
