@@ -3,7 +3,7 @@
   "info" : {
     "version" : "1.0",
     "title" : "Service Metadata Publisher (SMP) interface specification",
-    "description" : "The \"Service Metadata Publisher\" (SMP) provides the ability to discover detailed service information and associated digital certificates for any given business identifier.<br/> Please consider test installation data validty - some of them have like-production data, but this data value is not guaranteed and may be changed in development purposes; do not rely on data from specific hostname to real-world production installation untill service owners specifically said it's true and valid.<br/> This API specification should be valid for all supporting installations and implementations.<br/><br/> By the way, true OASIS XML compliant requests are supported as well, but not documented yet - its a big TODO.<br/> https://smp.testpoint.io/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307?format=xml<br/> https://smp.testpoint.io/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307/service/dbc::invoice?format=xml<br/> (use format-xml param or send application/xml Accept header)"
+    "description" : "The \"Service Metadata Publisher\" (SMP) provides the ability to discover detailed service information and associated digital certificates for any given business identifier.<br/> Please consider test installation data validty - some of them have like-production data, but this data value is not guaranteed and may be changed in development purposes; do not rely on data from specific hostname to real-world production installation untill service owners specifically said it's true and valid.<br/> This API specification should be valid for all supporting installations and implementations.<br/><br/> If you want OASIS XML output then pass Accept header with 'application/xml' value or ?format=xml as GET query parameter. OASIS-compliant urls also supported:<br/> https://smp.testpoint.io/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307?format=xml<br/> https://smp.testpoint.io/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::22341388307/service/dbc::invoice?format=xml<br/> Please note that XML format differs from JSON; json has more data and more flexible, but XML is compatable with OASIS specification."
   },
   "host" : "smp.testpoint.io",
   "schemes" : [ "https", "http" ],
@@ -36,6 +36,20 @@
     }
   },
   "paths" : {
+    "/demo_auth" : {
+      "get" : {
+        "summary" : "Get base user information with authentication enabled",
+        "description" : "used to check if OIDC/OAUTH2 Bearer token is correctly provided",
+        "responses" : {
+          "200" : {
+            "description" : "Bearer/JWT is correct"
+          },
+          "401" : {
+            "description" : "wrong auth parameters"
+          }
+        }
+      }
+    },
     "/businesses" : {
       "get" : {
         "summary" : "Full list of participants (businesses) in system",
