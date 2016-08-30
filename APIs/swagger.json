@@ -39,7 +39,7 @@
     "/demo_auth" : {
       "get" : {
         "summary" : "Get base user information with authentication enabled",
-        "description" : "used to check if OIDC/OAUTH2 Bearer token is correctly provided",
+        "description" : "used to check if OIDC JWT or oauth2 Bearer token is correctly provided",
         "responses" : {
           "200" : {
             "description" : "Bearer/JWT is correct"
@@ -56,11 +56,11 @@
     "/businesses" : {
       "get" : {
         "summary" : "Full list of participants (businesses) in system",
-        "description" : "Returns a list of participants, optionally filtered; with optional facets values (for better search experience).",
+        "description" : "Returns a list of participants, optionally filtered; with optional facets values (for better search experience), paginated.",
         "parameters" : [ {
           "name" : "show_facets",
           "in" : "query",
-          "description" : "shall facets real values be returned (1) or just empty dict (0)",
+          "description" : "shall facets real values be returned (1) or just empty dict (0). Default is 0.",
           "required" : false,
           "type" : "number"
         }, {
