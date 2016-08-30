@@ -278,6 +278,42 @@
             "description" : "Internal Server Error"
           }
         }
+      },
+      "put" : {
+        "summary" : "Create/replace service group",
+        "parameters" : [ {
+          "$ref" : "#/parameters/participantIdUrlParameter"
+        }, {
+          "$ref" : "#/parameters/serviceGroupNameUrlParameter"
+        }, {
+          "description" : "New service group data",
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ServiceGroup"
+          }
+        } ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Service group response",
+            "schema" : {
+              "$ref" : "#/definitions/ServiceGroup"
+            }
+          },
+          "404" : {
+            "description" : "Participant Not Found"
+          },
+          "406" : {
+            "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
       }
     }
   },
