@@ -33,6 +33,14 @@
       "required" : true,
       "type" : "string",
       "default" : "dbc::invoice"
+    },
+    "serviceGroupNameUrlParameter" : {
+      "name" : "name",
+      "in" : "path",
+      "description" : "name of service group object",
+      "required" : true,
+      "type" : "string",
+      "default" : "default"
     }
   },
   "paths" : {
@@ -231,6 +239,34 @@
           },
           "401" : {
             "description" : "Authorization required"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "406" : {
+            "description" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request."
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/business/{participant_id}/servicegroup/{name}" : {
+      "get" : {
+        "summary" : "Get service group information and content",
+        "description" : "Return service group service metadadatas list, extensions (optional) and group identificator.",
+        "parameters" : [ {
+          "$ref" : "#/parameters/participantIdUrlParameter"
+        }, {
+          "$ref" : "#/parameters/serviceGroupNameUrlParameter"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Service group response",
+            "schema" : {
+              "$ref" : "#/definitions/ServiceGroup"
+            }
           },
           "404" : {
             "description" : "Not Found"
