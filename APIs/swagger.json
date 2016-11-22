@@ -50,10 +50,12 @@
     }
   },
   "paths" : {
-    "/demo_auth" : {
+    "/demo_auth/" : {
       "get" : {
+        "tags" : [ "auth" ],
         "summary" : "Get base user information with authentication enabled",
-        "description" : "used to check if OIDC JWT or oauth2 Bearer token is provided correctly",
+        "description" : "Check if OIDC JWT or oauth2 Bearer or ApiKey token correct",
+        "operationId" : "DemoAuth",
         "responses" : {
           "200" : {
             "description" : "Bearer/JWT is correct"
@@ -69,10 +71,12 @@
         } ]
       }
     },
-    "/businesses" : {
+    "/businesses/" : {
       "get" : {
-        "summary" : "Full list of participants (businesses) in system",
-        "description" : "Returns a list of participants, optionally filtered; with optional facets values (for better search experience), paginated.",
+        "tags" : [ "Businesses" ],
+        "summary" : "Participants list",
+        "description" : "Returns full list of all public participants in the database",
+        "operationId" : "BusinessList",
         "parameters" : [ {
           "name" : "show_facets",
           "in" : "query",
@@ -117,7 +121,6 @@
           "required" : false,
           "type" : "number"
         } ],
-        "operationId" : "getBusinessesList",
         "responses" : {
           "200" : {
             "description" : "list of participants with basic information",
@@ -139,12 +142,13 @@
     },
     "/business/{participant_id}" : {
       "get" : {
-        "summary" : "Participant ID (business) info",
-        "description" : "List of service groups, service endponts and generic data about given participant.",
+        "tags" : [ "Business" ],
+        "summary" : "Participant Info",
+        "description" : "Return information about business and it's services",
+        "operationId" : "BusinessDetail",
         "parameters" : [ {
           "$ref" : "#/parameters/participantIdUrlParameter"
         } ],
-        "operationId" : "getBusinessDetail",
         "responses" : {
           "200" : {
             "description" : "Participant Information",
@@ -163,7 +167,8 @@
     },
     "/business/{participant_id}/service/{id}" : {
       "get" : {
-        "summary" : "Specific service metadata",
+        "tags" : [ "Service" ],
+        "summary" : "get service metadata",
         "description" : "Returns a service metadata based on a single id for given participant",
         "operationId" : "getServiceMetadata",
         "parameters" : [ {
@@ -190,8 +195,9 @@
         }
       },
       "put" : {
-        "summary" : "put (create/replace) specific service metadata",
-        "description" : "Inserts a single service metadata values into the storage, replaces the old one (if exists)",
+        "tags" : [ "Service" ],
+        "summary" : "put service metadata",
+        "description" : "Inserts a single service metadata values into the storage, replaces the old one if exists",
         "operationId" : "putServiceMetadata",
         "security" : [ {
           "Bearer" : [ ]
@@ -231,8 +237,9 @@
         }
       },
       "delete" : {
+        "tags" : [ "Service" ],
         "summary" : "Delete specific service metadata",
-        "description" : "Deletes a single service metadata based on the id supplied; available only to participant/service owner or trusted person.",
+        "description" : "Deletes a single service metadata based on the id supplied; available only to participant or service owner or trusted person.",
         "operationId" : "deleteServiceMetadata",
         "security" : [ {
           "Bearer" : [ ]
@@ -263,6 +270,7 @@
     },
     "/business/{participant_id}/servicegroup/{name}" : {
       "get" : {
+        "tags" : [ "Service Group" ],
         "summary" : "Get service group information and content",
         "description" : "Return service group service metadadatas list, extensions (optional) and group identificator.",
         "parameters" : [ {
@@ -289,6 +297,7 @@
         }
       },
       "put" : {
+        "tags" : [ "Service Group" ],
         "summary" : "Create/replace service group",
         "parameters" : [ {
           "$ref" : "#/parameters/participantIdUrlParameter"
