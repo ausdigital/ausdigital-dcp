@@ -76,13 +76,14 @@
         "parameters" : [ {
           "name" : "show_facets",
           "in" : "query",
-          "description" : "shall facets real values be returned (1) or just empty dict (0). Default is 0.",
+          "description" : "return facets (1) or not (0, default)",
           "required" : false,
-          "type" : "number"
+          "type" : "number",
+          "default" : 0
         }, {
           "name" : "query",
           "in" : "query",
-          "description" : "Freetext value to search by; proxied to search backend, current words behaviour - OR",
+          "description" : "Freetext value to search by; proxied to search backend",
           "required" : false,
           "type" : "string"
         }, {
