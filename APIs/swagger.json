@@ -18,7 +18,7 @@
     "Apikey" : {
       "type" : "apiKey",
       "in" : "header",
-      "name" : "Apikey",
+      "name" : "Authorization: ApiKey",
       "description" : "Api token from /security/integration/ page"
     }
   },
