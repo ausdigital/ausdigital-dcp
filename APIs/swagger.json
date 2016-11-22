@@ -35,7 +35,7 @@
     "serviceIdUrlParameter" : {
       "name" : "id",
       "in" : "path",
-      "description" : "ID of service metadata, string or hash",
+      "description" : "ID of service metadata as string or hash",
       "required" : true,
       "type" : "string",
       "default" : "dbc::invoice"
@@ -43,7 +43,7 @@
     "serviceGroupNameUrlParameter" : {
       "name" : "name",
       "in" : "path",
-      "description" : "name of service group object",
+      "description" : "name of service group object, string, 'default' or custom name",
       "required" : true,
       "type" : "string",
       "default" : "default"
@@ -53,7 +53,7 @@
     "/demo_auth" : {
       "get" : {
         "summary" : "Get base user information with authentication enabled",
-        "description" : "used to check if OIDC JWT or oauth2 Bearer token is correctly provided",
+        "description" : "used to check if OIDC JWT or oauth2 Bearer token is provided correctly",
         "responses" : {
           "200" : {
             "description" : "Bearer/JWT is correct"
