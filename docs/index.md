@@ -53,7 +53,7 @@ RFC 2119.
 
 Implementations MUST provide a compliant REST Application Programming Interface.
 
-A draft The [REST interface v1.0](https://swaggerhub.com/api/ausdigital/metadata-publisher/1.0) is available for comment.
+A draft [REST interface v1.0](https://swaggerhub.com/api/ausdigital/metadata-publisher/1.0) is available for comment.
 
 ## Protocol
 
