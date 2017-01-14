@@ -13,10 +13,12 @@ This specification aims to support the Australian Digital Business Council e-Inv
 initiative, and is under active development at http://ausdigital.org/.
 
 The DCP service depends on other services:
+
  * [Digital Capability Locator](https://capability-locator.readthedocs.io)
  * [Identity Provider](https://identity-provider.readthedocs.io)
 
 Other services that depend on the DCP:
+
  * [Transaction Access Point](http://ausdigital.org/transaction-access-point)
  * [Notary](http://ausdigital.org/notary/)
 
