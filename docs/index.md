@@ -16,8 +16,8 @@ initiative, and is under active development at http://ausdigital.org/.
 
 The DCP service depends on other services:
 
- * [Digital Capability Locator](https://capability-locator.readthedocs.io)
- * [Identity Provider](https://identity-provider.readthedocs.io)
+ * [Digital Capability Locator](https://ausdigital-dcl.readthedocs.io)
+ * [Identity Provider](https://ausdigital-idp.readthedocs.io)
 
 Other services that depend on the DCP:
 
@@ -69,7 +69,7 @@ For open B2B standards to be adopted, users must have confidence in the integrit
 
 This framework operates on the basis that the issuer of a business identifier is best positioned to verify the identity of anyone attempting to authorise an update to the metadata registry. That is why for example we are proposing the Digital Capability Locator (DCL) for the Australian Business Number (ABN) should be operated by the Australian Business Register (ABR).
 
-The Digital Capability Publisher is functionally equivelent to a REST version of the European OASIS standard "Service Metadata Publisher". Users are expected to have used the Digital Capability Locator [DCL](https://capability-locator.readthedocs.io) to discover the appropriate DCP service for a particular business. They then interact with the DCP using the REST protocol [documented here](https://app.swaggerhub.com/api/ausdigital/metadata-publisher/1.0) to access a collection of ServiceMetaData entries for the business. 
+The Digital Capability Publisher is functionally equivelent to a REST version of the European OASIS standard "Service Metadata Publisher". Users are expected to have used the Digital Capability Locator [DCL](https://ausdigital-dcl.readthedocs.io) to discover the appropriate DCP service for a particular business. They then interact with the DCP using the REST protocol [documented here](https://app.swaggerhub.com/api/ausdigital/metadata-publisher/1.0) to access a collection of ServiceMetaData entries for the business. 
 
 The sample below shows a service metadata record example for a business with ABN 23601120601 that supports both standard invoice and RCTI processes.
 
