@@ -8,28 +8,27 @@
  * Editor: Chris Gough
  * Contributors: Steve Capell
 
-##Glossary:
-
-phrase | Definition
------------- | -------------
-ausdigital-dcl/1 | Version 1 of the [AusDigtial](http://ausdigital.org) [DCL](https://ausdigital-dcl.readthedocs.io) specification
-
 This document describes a standard service for discovering the integration surface of a
 participant in RESTful business-to-business message exchange.
 
 This specification aims to support the Australian Digital Business Council e-Invoicing
 initiative, and is under active development at http://ausdigital.org/.
 
-The DCP service depends on other services:
 
- * [Digital Capability Locator](https://ausdigital-dcl.readthedocs.io)
- * [Identity Provider](https://ausdigital-idp.readthedocs.io)
+##Glossary:
 
-Other services that depend on the DCP:
+phrase | Definition
+------------ | -------------
+ausdigital-dcp/1 | This specification.
+ausdigital-dcl/1 | Version 1 of the [AusDigtial](http://ausdigital.org) [Digital Capability Lookup (DCL)](https://ausdigital-dcl.readthedocs.io) specification
+ausdigital-idp/1 | Version 1 of the AusDigital [Identity Provider (IDP)](https://ausdigital-idp.readthedocs.io) specification.
+ausdigital-tap/1 | Version 1 of the AusDigital [Transaction Access Point(TAP)](http://ausdigital.org/transaction-access-point) specification.
+ausdigital-nry/1 | Version 1 of the AusDigital [Notary (NRY)](http://ausdigital.org/notary/) specification.
 
- * [Transaction Access Point](http://ausdigital.org/transaction-access-point)
- * [Notary](http://ausdigital.org/notary/)
+The DCP service depends on `ausdigital-dcl/1` and `ausdigital-idp/1`.
 
+Other `ausdigital-tap` and `ausdigital-nry` services both depend on the DCP service.
+ 
 
 ## Licence
 
