@@ -15,9 +15,9 @@ This specification aims to support the Australian Digital Business Council e-Inv
 initiative, and is under active development at http://ausdigital.org/.
 
 
-##Glossary:
+## Glossary
 
-phrase | Definition
+Phrase | Definition
 ------------ | -------------
 ausdigital-dcp/1 | This specification.
 ausdigital-dcl/1 | Version 1 of the [AusDigtial](http://ausdigital.org) [Digital Capability Lookup (DCL)](https://ausdigital-dcl.readthedocs.io) specification
@@ -28,7 +28,7 @@ ausdigital-nry/1 | Version 1 of the AusDigital [Notary (NRY)](http://ausdigital.
 The DCP service depends on `ausdigital-dcl/1` and `ausdigital-idp/1`.
 
 Other `ausdigital-tap` and `ausdigital-nry` services both depend on the DCP service.
- 
+
 
 ## Licence
 
