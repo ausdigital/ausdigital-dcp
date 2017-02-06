@@ -1,4 +1,4 @@
-# AusDigital Capabiity Publisher (DCP) Specification
+# AusDigital Digital Capabiity Publisher (DCP) Specification
 
 The Digital Capabiity Publisher (DCP) Specification provides the ability to discover detailed service information (including associated digital certificates) for any given business identifier.
 

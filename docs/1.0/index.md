@@ -38,7 +38,7 @@ Comments and feedback are encouraged and welcome. Pull requests with improvement
 Phrase | Definition
 ------------ | -------------
 ausdigital-dcp/1 | This specification.
-ausdigital-dcl/1 | Version 1 of the AusDigtial [Digital Capability Lookup (DCL)](https://ausdigital-dcl.readthedocs.io) specification
+ausdigital-dcl/1 | Version 1 of the AusDigtial [Digital Capability Locator (DCL)](https://ausdigital-dcl.readthedocs.io) specification
 ausdigital-idp/1 | Version 1 of the AusDigital [Identity Provider (IDP)](https://ausdigital-idp.readthedocs.io) specification.
 ausdigital-tap/1 | Version 1 of the AusDigital [Transaction Access Point(TAP)](http://ausdigital.org/transaction-access-point) specification.
 ausdigital-tap/2 | Version 2 of the AusDigital [Transaction Access Point(TAP)](http://ausdigital.org/transaction-access-point) specification.
