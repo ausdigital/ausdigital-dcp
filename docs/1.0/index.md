@@ -1,7 +1,11 @@
- * Spec ID: ausdigital.org/dcp/1.0
+ * Spec ID: ausdigital.org/ausdigital-dcp/1.0
  * ![raw](http://rfc.unprotocols.org/spec:2/COSS/raw.svg)
- * Editor: Chris Gough
- * Contributors: Steve Capell
+ * Editor: [Chris Gough](mailto:christopher.d.gough@gmail.com)
+ * Contributors: [Steven Capell](mailto:steven.capell@gosource.com.au)
+
+# AusDigital Digital Capability Publisher (DCP) 1.0 Specification
+
+## Introduction
 
 This document describes a standard service for discovering the integration surface of a
 participant in RESTful business-to-business message exchange.
@@ -10,14 +14,34 @@ This specification aims to support the Australian Digital Business Council e-Inv
 initiative, and is under active development at http://ausdigital.org/.
 
 
+## Goals
+
+The primary goal of the Digital Capability Publisher (DCP) 1.0 Specification is to TBA.
+
+The Digital Capability Publisher (DCP) 1.0 Specification defines TBA.
+
+
+## Status
+
+This spec is an early draft for consuiltation.
+
+This specification aims to support the Australian Digital Business Council
+[eInvoicing initiative](http://ausdigital.org), and is under active
+development at
+[https://github.com/ausdigital/ausdigital-dcp](https://github.com/ausdigital/ausdigital-dcp).
+
+Comments and feedback are encouraged and welcome. Pull requests with improvements are welcome too.
+
+
 ## Glossary
 
 Phrase | Definition
 ------------ | -------------
 ausdigital-dcp/1 | This specification.
-ausdigital-dcl/1 | Version 1 of the [AusDigtial](http://ausdigital.org) [Digital Capability Lookup (DCL)](https://ausdigital-dcl.readthedocs.io) specification
+ausdigital-dcl/1 | Version 1 of the AusDigtial [Digital Capability Lookup (DCL)](https://ausdigital-dcl.readthedocs.io) specification
 ausdigital-idp/1 | Version 1 of the AusDigital [Identity Provider (IDP)](https://ausdigital-idp.readthedocs.io) specification.
 ausdigital-tap/1 | Version 1 of the AusDigital [Transaction Access Point(TAP)](http://ausdigital.org/transaction-access-point) specification.
+ausdigital-tap/2 | Version 2 of the AusDigital [Transaction Access Point(TAP)](http://ausdigital.org/transaction-access-point) specification.
 ausdigital-nry/1 | Version 1 of the AusDigital [Notary (NRY)](http://ausdigital.org/notary/) specification.
 
 The DCP service depends on `ausdigital-dcl/1` and `ausdigital-idp/1`.
@@ -111,3 +135,11 @@ The sample below shows a service metadata record example for a business with ABN
     }]
     
 ```
+
+# Related Material
+
+ * ADBC DCP Implementation Guide (v1.0, available [here](https://github.com/ausdigital/ausdigital-dcp/blob/master/docs/1.0/Digital_Capability_Publisher_Implementation_Guide_v1.0.pdf)), which provides background to the [AusDigital](http://ausdigital.org) community process.
+ * [GitHub issues](https://github.com/ausdigital/ausdigital-dcp/issues/) for collaborating on the development of the DCP.
+ * A reference [DCP service](https://dcp.testpoint.io/) (for testing and development purposes).
+ * Free, Open-Source Software [DCP implementation](https://github.com/test-point/testpoint-dcp).
+ * An automated [DCP test suite](https://github.com/test-point/testpoint-dcp).
