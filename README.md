@@ -4,7 +4,7 @@ The Digital Capabiity Publisher (DCP) Specification provides the ability to disc
 
  * [Version 1.0](/docs/1.0/index.md)
 
-Specification: [https://ausdigital-dcp.readthedocs.io/](https://ausdigital-dcp.readthedocs.io/)
+Specification: [http://ausdigital.org/specs/ausdigital-dcp/1.0/](http://ausdigital.org/specs/ausdigital-dcp/1.0/)
 
 Community discussion/support: [ausdigital.org](http://ausdigital.org)
 
