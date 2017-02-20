@@ -223,7 +223,10 @@
             "description" : "Wrong input format, most likely the service metadata is malformed"
           },
           "401" : {
-            "description" : "Authorization required"
+            "description" : "Authentication is required and has failed or has not yet been provided"
+          },
+          "403" : {
+            "description" : "Authentication is provided but you don't have permission to do that"
           },
           "404" : {
             "description" : "Participant Not Found"
@@ -321,6 +324,12 @@
             "schema" : {
               "$ref" : "#/definitions/ServiceGroup"
             }
+          },
+          "401" : {
+            "description" : "Authentication is required and has failed or has not yet been provided"
+          },
+          "403" : {
+            "description" : "Authentication is provided but you don't have permission to do that"
           },
           "404" : {
             "description" : "Participant Not Found"
