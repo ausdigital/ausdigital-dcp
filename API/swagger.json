@@ -80,7 +80,7 @@
     "notRevokedBefore": {
       "name": "notRevokedBefore",
       "in": "query",
-      "description": "Filter parameter for keys never revoked or revoked lately than given time (in ISO 8601 format)",
+      "description": "Filter parameter for keys never revoked or revoked after the given time (in ISO 8601 format)",
       "required": false,
       "type": "string",
       "format": "date-time",
