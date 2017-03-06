@@ -76,6 +76,24 @@
         "text/html",
         "text/xml"
       ]
+    },
+    "notRevokedBefore": {
+      "name": "notRevokedBefore",
+      "in": "query",
+      "description": "Filter parameter for keys never revoked or revoked lately than given time (in ISO 8601 format)",
+      "required": false,
+      "type": "string",
+      "format": "date-time",
+      "default": "2017-03-02T00:00:00.00000000:00"
+    },
+    "published_before": {
+      "name": "published_before",
+      "in": "query",
+      "description": "Filter parameter for keys published before given time (in ISO 8601 format)",
+      "required": false,
+      "type": "string",
+      "format": "date-time",
+      "default": "2017-03-03T00:00:00.000000+00:00"
     }
   },
   "responses": {
@@ -350,6 +368,12 @@
         "parameters": [
           {
             "$ref": "#/parameters/participantIdUrlParameter"
+          },
+          {
+            "$ref": "#/parameters/notRevokedBefore"
+          },
+          {
+            "$ref": "#/parameters/published_before"
           }
         ],
         "responses": {
@@ -363,6 +387,9 @@
             "schema": {
               "$ref": "#/definitions/keyDetailList"
             }
+          },
+          "400": {
+            "$ref": "#/responses/400"
           },
           "404": {
             "$ref": "#/responses/404"
