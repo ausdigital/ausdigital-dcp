@@ -240,6 +240,13 @@ DCP MAY offer additional endpoints while they don't collide with standard ones
 
 ### Endpoints description
 
+Checkpoints for ANY endpoint:
+
+* XML version MUST be OASIS-compliant
+* JSON and XML version MUST provide the same core data with optional extra data
+* DCP publishing services SHOULD NOT produce extra metadata that contain extensions necessary for a Client to understand in order to make use of this metadata (private forks of that specification may define whatever they consider useful)
+
+
 **GET `/{participant_id}`**
 * MUST contain participant ID
 * MUST contain list of document types (service metadatas links)
@@ -251,18 +258,20 @@ DCP MAY offer additional endpoints while they don't collide with standard ones
 * Return service metadata for given `document_id` and `participant_id`
 * service metadata MAY have additional json fields provided, implementations SHOULD ignore unknown fields
 * response MUST include `ProcessList` element
+* OASIS response MUST be compatible with [OASIS PEPPOL specification](http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cos01/bdx-smp-v1.0-cos01.html#_Toc458092041)
 
 **GET `/{participant_id}/keys/`**
 * Return list of published public keys for this participant
-* MUST be a list of PublicKey objects (todo: put that schema here, describe fields `fingerprint`, `keyid`, `published`, `pubKey`, `revoked`)
+* MUST be a list of PublicKey objects (TODO: put that schema here, describe fields `fingerprint`, `keyid`, `published`, `pubKey`, `revoked`)
 * MAY offer additioinal filtering parameters
 
 **GET `/{participant_id}/keys/{id}`**
 * Return specific public key for given business
 * `id` parameter MUST be a fingerprint or keyid of given key
-* MUST be a valid PublicKey object
+* MUST return a valid PublicKey object
 * MUST return 404 if key doesn't exists
 * MAY offer additioinal filtering parameters
+* MUST return information of key publication date and revocation date if applicable
 
 **PUT `/{participant_id}/service/{document_id}`**
 * Update and return updated service metadata
@@ -274,31 +283,36 @@ DCP MAY offer additional endpoints while they don't collide with standard ones
 **DELETE `/{participant_id}/service/{document_id}`**
 * MUST do something so GET `/{participant_id}/service/{document_id}` starts to return 404
 
-**GET /{participant_id}/aka**
+**GET `/{participant_id}/aka`**
 * MUST return full list of participant ids, linked by business owner to this participant identifiers
 * links works both ways
 * if user linked PID1 to PID2 and PID2 to PID3 then PID1 linked to PID3 as well.
+* implementations MAY include source participant ID (provided in URL) in linked list
 
-**POST /{participant_id}/aka**
-* MUST accept parameter `linked_participant_id` which is equal to participant ID which business owner wants to link
-* DCP MUST check auth and ensure that both participant id (base and linked) are owned by user
+**POST `/{participant_id}/aka`**
+* MUST accept body parameter `participantId` which is equal to participant ID which business owner wants to link
+* DCP MUST check auth and ensure that both participant id (base and linked) are manageable by this user
 * MUST silently replace old link by new one if link already exists
-* participant_id must appear in GET `/{linked_participant_id}/aka` (link works both ways)
+* link MUST work both directions (if `/{pid1}/aka` contains pid2 then `/{pid2}/aka` contains pid1)
+* any 3rd participant id, linked to first or second, must receve link to both participant IDs; both participant ID must receive link to any 3rd party participant id, linked to another one.
 
 **DELETE `/{participant_id}/aka/{linked_participant_id}`**
-* used to remove link from first PID to second
+* Is used to remove link between these participant IDs
 * DCP MUST check auth and ensure that both participant ids (first and second) are owned by this user
 * DCP MUST remove the link between first and second participant id
 
 
-If business has 2 participant identifiers linked then services (documents) from ID1 MUST NOT appear in output for ID2, and vise versa
-
+If business has 2 participant identifiers linked then services (documents) from ID1 MUST NOT appear in output for ID2, and vise versa. Business MAY do 2 PUT requests to both participant ID have the same service metadatas, or use implementation-specific convenience endpoints for that.
 
 ## Examples
 
-**GET /urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::42140282984**
+### Response formats
+
+**GET /urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::99999999999**
 
 ```
+Accept: application/json
+
 {
   "ServiceMetadataReferenceCollection": [
     "sap::invoice"
@@ -307,46 +321,109 @@ If business has 2 participant identifiers linked then services (documents) from 
   "Extension": {},
   "ParticipantIdentifier": {
     "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
-    "value": "42140282984"
+    "value": "99999999999"
   }
 }
 ```
 
-**GET /urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::42140282984/service/sap::invoice**
+```
+Accept: application/xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<ServiceGroup xmlns="http://busdox.org/serviceMetadata/publishing/1.0/" xmlns:ids="http://busdox.org/transport/identifiers/1.0/">
+  <ids:ParticipantIdentifier scheme="urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151">99999999999</ids:ParticipantIdentifier>
+  <ServiceMetadataReferenceCollection>
+    <ServiceMetadataReference href="https://example.org/urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::99999999999/service/sap::invoice"/>
+  </ServiceMetadataReferenceCollection>
+  <Extension/>
+</ServiceGroup>
+```
+
+**GET /urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::99999999999/service/dbc::invoices**
+
 
 ```
+Accept: application/json
+
 {
   "ProcessList": [
     {
       "ProcessIdentifier": {
-        "scheme": "dbc",
-        "value": "invoice-type1"
+        "scheme": "gln-deliver-goods",
+        "value": "generic"
       },
       "ServiceEndpointList": [
         {
-          "ServiceActivationDate": "2017-02-14",
-          "Certificate": "...",
-          "EndpointURI": "...",
-          "transportProfile": "...",
-          "ServiceExpirationDate": "2017-02-14",
-          "RequireBusinessLevelSignature": "...",
-          "TechnicalInformationUrl": "...",
-          "MinimumAuthenticationLevel": "0",
-          "ServiceDescription": "..."
+          "EndpointURI": "https://accesspoint.com/as4service/simplified/invoice-2-type/",
+          "transportProfile": "dbc-as4",
+          "RequireBusinessLevelSignature": "false",
+          "TechnicalInformationUrl": "http://www.acesspoint.com/as4info",
+          "MinimumAuthenticationLevel": "2",
+          "ServiceDescription": "as4 message service for invoice 2"
         }
       ]
     }
   ],
   "DocumentIdentifier": {
-    "scheme": "sap",
-    "value": "invoice"
+    "scheme": "dbc",
+    "value": "invoices"
   },
-  "ParticipantIdentifier":{
+  "id": "dbc::invoices",
+  "ParticipantIdentifier": {
     "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
-    "value": "42140282984"
+    "value": "99999999999"
   }
 }
 ```
+
+```
+Accept: application/xml
+
+<SignedServiceMetadata xmlns="http://busdox.org/serviceMetadata/publishing/1.0/" xmlns:ids="http://busdox.org/transport/identifiers/1.0/">
+  <ServiceMetadata xmlns="http://busdox.org/serviceMetadata/publishing/1.0/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <ServiceInformation>
+      <ids:ParticipantIdentifier scheme="urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151">99999999999</ids:ParticipantIdentifier>
+      <ids:DocumentIdentifier scheme="dbc">invoices</ids:DocumentIdentifier>
+      <ProcessList>
+        <Process>
+          <ids:ProcessIdentifier scheme="gln-deliver-goods">generic</ids:ProcessIdentifier>
+          <ServiceEndpointList>
+            <Endpoint transportProfile="dbc-as4">
+              <EndpointURI>https://accesspoint.com/as4service/simplified/invoice-2-type/</EndpointURI>
+              <transportProfile>dbc-as4</transportProfile>
+              <RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+              <TechnicalInformationUrl>http://www.acesspoint.com/as4info</TechnicalInformationUrl>
+              <MinimumAuthenticationLevel>2</MinimumAuthenticationLevel>
+              <ServiceDescription>as4 message service for invoice 2</ServiceDescription>
+            </Endpoint>
+          </ServiceEndpointList>
+        </Process>
+      </ProcessList>
+    </ServiceInformation>
+  </ServiceMetadata>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#"/>
+</SignedServiceMetadata>
+```
+
+
+### Participant ID linking
+
+Before:
+
+* pid1 linked to pid2 (and vice versa)
+* pid1 linked participant IDs: `[pid1, pid2]`
+* pid2 linked participant IDs: `[pid1, pid2]`
+* pid_new linked participant IDs: `[pid_new]` or `[]`
+* user adds pid_new to pid1 links: `POST /{pid1}/aka` with `{"participantId": pid_new}` payload
+
+After:
+
+* pid1 linked to pid2 and to pid_new (and vice versa)
+* pid1 linked participant IDs: `[pid1, pid2, pid_new]`
+* pid2 linked participant IDs: `[pid1, pid2, pid_new]`
+* pid_new linked participant IDs: `[pid1, pid2, pid_new]`
+
+Please note no `POST /{pid2}/aka` was submitted, but pid2 still receives link to pid_new because pid1 was linked to pid2.
 
 # Related Material
 
