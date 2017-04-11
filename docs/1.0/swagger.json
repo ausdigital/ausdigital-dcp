@@ -132,7 +132,7 @@
         }
       },
       "examples": {
-        "application/json": "{\n  \\"status\": \"error\",\n  \"status_code\": 400,\n  \"message\": \"JSON parse error - No JSON object could be decoded\",\n  \"type\": \"urn:acme:error:generic\"\n}"
+        "application/json": "{\n  \"status\": \"error\",\n  \"status_code\": 400,\n  \"message\": \"JSON parse error - No JSON object could be decoded\",\n  \"type\": \"urn:acme:error:generic\"\n}"
       }
     },
     "401": {
