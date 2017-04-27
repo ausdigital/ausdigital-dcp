@@ -103,47 +103,115 @@ The Digital Capability Publisher is functionally equivalent to a REST version of
 The sample below shows a service metadata record example for a business with ABN 99999999999 that supports both standard invoice and RCTI processes. Fields will be explained in this document later.
 
 ```
-  {
-    "ProcessList": [
-      {
-        "ProcessIdentifier": {"scheme": "dbc-procid","value": "invoice-1"},
-        "ServiceEndpointList": [
-          {
-          "transportProfile": "REST-POST",
-          "EndpointURI": "https://api.myob.com/au/essentials/businesses/23601120601/purchase/invoice-1",
-          "RequireBusinessLevelSignature": "true",
-          "MinimumAuthenticationLevel": "2",
-          "ServiceActivationDate": "2015-05-01",
-          "ServiceExpirationDate": "2018-05-01",
-          "Certificate": "TlRMTVNTUAABAAAAt7IY4gk....",
-          "ServiceDescription": "invoice service",
-          "TechnicalInformationUrl": "http://developer.myob.com/api/essentials-accounting/endpoints/"
-          }
-        ]
-      },
-      {
-        "ProcessIdentifier": {"scheme": "dbc-procid","value": "rcti-1"},
-        "ServiceEndpointList": [
-          {
-            "transportProfile": "REST-POST",
-            "EndpointURI": "https://api.myob.com/au/essentials/businesses/23601120601/sales/invoice-1",
-            "RequireBusinessLevelSignature": "true",
-            "MinimumAuthenticationLevel": "2",
-            "ServiceActivationDate": "2015-05-01",
-            "ServiceExpirationDate": "2018-05-01",
-            "Certificate": "TlRMTVNTUAABAAAAt7IY4gk....",
-            "ServiceDescription": "invoice service",
-            "TechnicalInformationUrl": "http://developer.myob.com/api/essentials-accounting/endpoints/"
-          }
-        ]
-      }
-    ],
-    "id": "dbc::claims",
-    "ParticipantIdentifier": {
-      "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
-      "value": "99999999999"
-    }
-  }
+<?xml version="1.0" encoding="UTF-8" ?>
+<SignedServiceMetadata xmlns="http://busdox.org/serviceMetadata/publishing/1.0/" xmlns:ids="http://busdox.org/transport/identifiers/1.0/">
+	<ServiceMetadata xmlns="http://busdox.org/serviceMetadata/publishing/1.0/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<ServiceInformation>
+			<ids:ParticipantIdentifier scheme="urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151">99998888781</ids:ParticipantIdentifier>
+			<ids:DocumentIdentifier scheme="dbc">core-invoice</ids:DocumentIdentifier>
+			<ProcessList>
+				<Process>
+					<ids:ProcessIdentifier scheme="dbc">invoice</ids:ProcessIdentifier>
+					<ServiceEndpointList>
+						<Endpoint transportProfile="TBD">
+							<ServiceActivationDate>2017-04-26</ServiceActivationDate>
+							<Certificate>123</Certificate>
+							<EndpointURI>http://tap-gw.testpoint.io/api/endpoints/fd7b7fb4-ed94-46d8-9bdf-5c4aca647f89/message/</EndpointURI>
+							<transportProfile>TBD</transportProfile>
+							<ServiceExpirationDate>2018-04-26</ServiceExpirationDate>
+							<RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+							<TechnicalInformationUrl>123</TechnicalInformationUrl>
+							<MinimumAuthenticationLevel>0</MinimumAuthenticationLevel>
+							<ServiceDescription>123</ServiceDescription>
+						</Endpoint>
+					</ServiceEndpointList>
+				</Process>
+				<Process>
+					<ids:ProcessIdentifier scheme="dbc">adjustment</ids:ProcessIdentifier>
+					<ServiceEndpointList>
+						<Endpoint transportProfile="TBD">
+							<ServiceActivationDate>2017-04-26</ServiceActivationDate>
+							<Certificate>123</Certificate>
+							<EndpointURI>http://tap-gw.testpoint.io/api/endpoints/fd7b7fb4-ed94-46d8-9bdf-5c4aca647f89/message/</EndpointURI>
+							<transportProfile>TBD</transportProfile>
+							<ServiceExpirationDate>2018-04-26</ServiceExpirationDate>
+							<RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+							<TechnicalInformationUrl>123</TechnicalInformationUrl>
+							<MinimumAuthenticationLevel>0</MinimumAuthenticationLevel>
+							<ServiceDescription>123</ServiceDescription>
+						</Endpoint>
+					</ServiceEndpointList>
+				</Process>
+				<Process>
+					<ids:ProcessIdentifier scheme="dbc">rcti</ids:ProcessIdentifier>
+					<ServiceEndpointList>
+						<Endpoint transportProfile="TBD">
+							<ServiceActivationDate>2017-04-26</ServiceActivationDate>
+							<Certificate>123</Certificate>
+							<EndpointURI>http://tap-gw.testpoint.io/api/endpoints/fd7b7fb4-ed94-46d8-9bdf-5c4aca647f89/message/</EndpointURI>
+							<transportProfile>TBD</transportProfile>
+							<ServiceExpirationDate>2018-04-26</ServiceExpirationDate>
+							<RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+							<TechnicalInformationUrl>123</TechnicalInformationUrl>
+							<MinimumAuthenticationLevel>0</MinimumAuthenticationLevel>
+							<ServiceDescription>123</ServiceDescription>
+						</Endpoint>
+					</ServiceEndpointList>
+				</Process>
+				<Process>
+					<ids:ProcessIdentifier scheme="dbc">taxreceipt</ids:ProcessIdentifier>
+					<ServiceEndpointList>
+						<Endpoint transportProfile="TBD">
+							<ServiceActivationDate>2017-04-26</ServiceActivationDate>
+							<Certificate>123</Certificate>
+							<EndpointURI>http://tap-gw.testpoint.io/api/endpoints/fd7b7fb4-ed94-46d8-9bdf-5c4aca647f89/message/</EndpointURI>
+							<transportProfile>TBD</transportProfile>
+							<ServiceExpirationDate>2018-04-26</ServiceExpirationDate>
+							<RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+							<TechnicalInformationUrl>123</TechnicalInformationUrl>
+							<MinimumAuthenticationLevel>0</MinimumAuthenticationLevel>
+							<ServiceDescription>123</ServiceDescription>
+						</Endpoint>
+					</ServiceEndpointList>
+				</Process>
+				<Process>
+					<ids:ProcessIdentifier scheme="dbc">creditnote</ids:ProcessIdentifier>
+					<ServiceEndpointList>
+						<Endpoint transportProfile="TBD">
+							<ServiceActivationDate>2017-04-26</ServiceActivationDate>
+							<Certificate>123</Certificate>
+							<EndpointURI>http://tap-gw.testpoint.io/api/endpoints/fd7b7fb4-ed94-46d8-9bdf-5c4aca647f89/message/</EndpointURI>
+							<transportProfile>TBD</transportProfile>
+							<ServiceExpirationDate>2018-04-26</ServiceExpirationDate>
+							<RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+							<TechnicalInformationUrl>123</TechnicalInformationUrl>
+							<MinimumAuthenticationLevel>0</MinimumAuthenticationLevel>
+							<ServiceDescription>123</ServiceDescription>
+						</Endpoint>
+					</ServiceEndpointList>
+				</Process>
+				<Process>
+					<ids:ProcessIdentifier scheme="dbc">debitnote</ids:ProcessIdentifier>
+					<ServiceEndpointList>
+						<Endpoint transportProfile="TBD">
+							<ServiceActivationDate>2017-04-26</ServiceActivationDate>
+							<Certificate>123</Certificate>
+							<EndpointURI>http://tap-gw.testpoint.io/api/endpoints/fd7b7fb4-ed94-46d8-9bdf-5c4aca647f89/message/</EndpointURI>
+							<transportProfile>TBD</transportProfile>
+							<ServiceExpirationDate>2018-04-26</ServiceExpirationDate>
+							<RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+							<TechnicalInformationUrl>123</TechnicalInformationUrl>
+							<MinimumAuthenticationLevel>0</MinimumAuthenticationLevel>
+							<ServiceDescription>123</ServiceDescription>
+						</Endpoint>
+					</ServiceEndpointList>
+				</Process>
+			</ProcessList>
+		</ServiceInformation>
+	</ServiceMetadata>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"/>
+</SignedServiceMetadata>
+  
 ```
 
 ## Informal description
@@ -159,22 +227,6 @@ Free-text explanation of the objects, used in this specification
     * with field name ("default")
     * with field extensions (free format object)
     * used to logically group the services
-  * has service metadata list
-    * with relation to ParticipantIdentifier (reference to containing business)
-    * with relation to ServiceGroup name ('default' if nothing was specified on service creation step)
-    * with field DocumentIdentifier (which document this service is about)
-    * with proceses list
-      * made of process object
-        * with field ProcessIdentifier: which process is described
-        * with field ServiceEndpointList: list of endpoints, which accept business messages
-  * with public keys list
-    * made of PublicKey items
-      * with field fingerprint
-      * with field keyid
-      * with field pubKey
-      * with field published
-      * with field revoked
-  * with list of linked participant identifiers
 
 Business is a base entity, containing all business-related objects. Business info is easy discoverable by DCL-DCP requests chain:
 
@@ -260,19 +312,6 @@ Checkpoints for ANY endpoint:
 * response MUST include `ProcessList` element
 * OASIS response MUST be compatible with [OASIS PEPPOL specification](http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cos01/bdx-smp-v1.0-cos01.html#_Toc458092041)
 
-**GET `/{participant_id}/keys/`**
-* Return list of published public keys for this participant
-* MUST be a list of PublicKey objects (TODO: put that schema here, describe fields `fingerprint`, `keyid`, `published`, `pubKey`, `revoked`)
-* MAY offer additioinal filtering parameters
-
-**GET `/{participant_id}/keys/{id}`**
-* Return specific public key for given business
-* `id` parameter MUST be a fingerprint or keyid of given key
-* MUST return a valid PublicKey object
-* MUST return 404 if key doesn't exists
-* MAY offer additioinal filtering parameters
-* MUST return information of key publication date and revocation date if applicable
-
 **PUT `/{participant_id}/service/{document_id}`**
 * Update and return updated service metadata
 * MUST completely replace old service metadata
@@ -283,24 +322,6 @@ Checkpoints for ANY endpoint:
 **DELETE `/{participant_id}/service/{document_id}`**
 * MUST do something so GET `/{participant_id}/service/{document_id}` starts to return 404
 
-**GET `/{participant_id}/aka`**
-* MUST return full list of participant ids, linked by business owner to this participant identifiers
-* links works both ways
-* if user linked PID1 to PID2 and PID2 to PID3 then PID1 linked to PID3 as well.
-* implementations MAY include source participant ID (provided in URL) in linked list
-
-**POST `/{participant_id}/aka`**
-* MUST accept body parameter `participantId` which is equal to participant ID which business owner wants to link
-* DCP MUST check auth and ensure that both participant id (base and linked) are manageable by this user
-* MUST silently replace old link by new one if link already exists
-* link MUST work both directions (if `/{pid1}/aka` contains pid2 then `/{pid2}/aka` contains pid1)
-* any 3rd participant id, linked to first or second, must receve link to both participant IDs; both participant ID must receive link to any 3rd party participant id, linked to another one.
-
-**DELETE `/{participant_id}/aka/{linked_participant_id}`**
-* Is used to remove link between these participant IDs
-* DCP MUST check auth and ensure that both participant ids (first and second) are owned by this user
-* DCP MUST remove the link between first and second participant id
-
 
 If business has 2 participant identifiers linked then services (documents) from ID1 MUST NOT appear in output for ID2, and vise versa. Business MAY do 2 PUT requests to both participant ID have the same service metadatas, or use implementation-specific convenience endpoints for that.
 
@@ -309,22 +330,6 @@ If business has 2 participant identifiers linked then services (documents) from 
 ### Response formats
 
 **GET /urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::99999999999**
-
-```
-Accept: application/json
-
-{
-  "ServiceMetadataReferenceCollection": [
-    "sap::invoice"
-  ],
-  "Name": "default",
-  "Extension": {},
-  "ParticipantIdentifier": {
-    "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
-    "value": "99999999999"
-  }
-}
-```
 
 ```
 Accept: application/xml
@@ -341,40 +346,6 @@ Accept: application/xml
 
 **GET /urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151::99999999999/service/dbc::invoices**
 
-
-```
-Accept: application/json
-
-{
-  "ProcessList": [
-    {
-      "ProcessIdentifier": {
-        "scheme": "gln-deliver-goods",
-        "value": "generic"
-      },
-      "ServiceEndpointList": [
-        {
-          "EndpointURI": "https://accesspoint.com/as4service/simplified/invoice-2-type/",
-          "transportProfile": "dbc-as4",
-          "RequireBusinessLevelSignature": "false",
-          "TechnicalInformationUrl": "http://www.acesspoint.com/as4info",
-          "MinimumAuthenticationLevel": "2",
-          "ServiceDescription": "as4 message service for invoice 2"
-        }
-      ]
-    }
-  ],
-  "DocumentIdentifier": {
-    "scheme": "dbc",
-    "value": "invoices"
-  },
-  "id": "dbc::invoices",
-  "ParticipantIdentifier": {
-    "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
-    "value": "99999999999"
-  }
-}
-```
 
 ```
 Accept: application/xml
@@ -404,26 +375,6 @@ Accept: application/xml
   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#"/>
 </SignedServiceMetadata>
 ```
-
-
-### Participant ID linking
-
-Before:
-
-* pid1 linked to pid2 (and vice versa)
-* pid1 linked participant IDs: `[pid1, pid2]`
-* pid2 linked participant IDs: `[pid1, pid2]`
-* pid_new linked participant IDs: `[pid_new]` or `[]`
-* user adds pid_new to pid1 links: `POST /{pid1}/aka` with `{"participantId": pid_new}` payload
-
-After:
-
-* pid1 linked to pid2 and to pid_new (and vice versa)
-* pid1 linked participant IDs: `[pid1, pid2, pid_new]`
-* pid2 linked participant IDs: `[pid1, pid2, pid_new]`
-* pid_new linked participant IDs: `[pid1, pid2, pid_new]`
-
-Please note no `POST /{pid2}/aka` was submitted, but pid2 still receives link to pid_new because pid1 was linked to pid2.
 
 # Related Material
 
