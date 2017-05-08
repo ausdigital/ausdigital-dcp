@@ -100,50 +100,56 @@ This framework operates on the basis that the issuer of a business identifier is
 
 The Digital Capability Publisher is functionally equivalent to a REST version of the European OASIS standard "Service Metadata Publisher". Users are expected to have used the `ausdigital-dcl/2` to discover the appropriate DCP service for a particular business. They then interact with the DCP using the REST protocol [documented here](http://ausdigital.org/specs/ausdigital-dcp/2.0/api) to access a collection of ServiceMetadata entries for the business.
 
-The sample below shows a service metadata record example for a business with ABN 99999999999 that supports both standard invoice and RCTI processes. Fields will be explained in this document later.
+The sample below shows a service metadata record example for a business with ABN 99999999529 that supports both standard invoice and RCTI processes. Fields will be explained in this document later.
 
 ```
-  {
-    "ProcessList": [
-      {
-        "ProcessIdentifier": {"scheme": "dbc-procid","value": "invoice-1"},
-        "ServiceEndpointList": [
-          {
-          "transportProfile": "REST-POST",
-          "EndpointURI": "https://api.myob.com/au/essentials/businesses/23601120601/purchase/invoice-1",
-          "RequireBusinessLevelSignature": "true",
-          "MinimumAuthenticationLevel": "2",
-          "ServiceActivationDate": "2015-05-01",
-          "ServiceExpirationDate": "2018-05-01",
-          "Certificate": "TlRMTVNTUAABAAAAt7IY4gk....",
-          "ServiceDescription": "invoice service",
-          "TechnicalInformationUrl": "http://developer.myob.com/api/essentials-accounting/endpoints/"
-          }
-        ]
+{
+  "ProcessList": [{
+      "ProcessIdentifier": {
+        "scheme": "digitalbusinesscouncil.com.au",
+        "value": "bill-invoice-v1"
       },
-      {
-        "ProcessIdentifier": {"scheme": "dbc-procid","value": "rcti-1"},
-        "ServiceEndpointList": [
-          {
-            "transportProfile": "REST-POST",
-            "EndpointURI": "https://api.myob.com/au/essentials/businesses/23601120601/sales/invoice-1",
-            "RequireBusinessLevelSignature": "true",
-            "MinimumAuthenticationLevel": "2",
-            "ServiceActivationDate": "2015-05-01",
-            "ServiceExpirationDate": "2018-05-01",
-            "Certificate": "TlRMTVNTUAABAAAAt7IY4gk....",
-            "ServiceDescription": "invoice service",
-            "TechnicalInformationUrl": "http://developer.myob.com/api/essentials-accounting/endpoints/"
-          }
-        ]
-      }
-    ],
-    "id": "dbc::claims",
-    "ParticipantIdentifier": {
-      "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
-      "value": "99999999999"
+      "ServiceEndpointList": [{
+          "ServiceActivationDate": "2017-04-13",
+          "Certificate": "TlRMTVNTUAABAAAAt7IY4gk....",
+          "EndpointURI": "http://tap-gw.testpoint.io/api/endpoints/af892e86-9580-484f-ae7e-c4bd42c98eb7/message/",
+          "transportProfile": "tap-v2.ausdigital.org",
+          "ServiceExpirationDate": "2017-04-17",
+          "RequireBusinessLevelSignature": false,
+          "TechnicalInformationUrl": "http://ausdigital.org/specs/ausdigital-bill/1.0/",
+          "MinimumAuthenticationLevel": "1",
+          "ServiceDescription": "TAP-GW Service Endpoint for AusDigital BILL Tax Invoice documents."
+        }
+      ]
+    }, {
+      "ProcessIdentifier": {
+        "scheme": "digitalbusinesscouncil.com.au",
+        "value": "bill-rcti-v1"
+      },
+      "ServiceEndpointList": [{
+          "ServiceActivationDate": "2017-04-13",
+          "Certificate": "TlRMTVNTUAABAAAAt7IY4gk....",
+          "EndpointURI": "http://tap-gw.testpoint.io/api/endpoints/af892e86-9580-484f-ae7e-c4bd42c98eb7/message",
+          "transportProfile": "tap-v2.ausdigital.org",
+          "ServiceExpirationDate": "2017-04-17",
+          "RequireBusinessLevelSignature": false,
+          "TechnicalInformationUrl": "http://ausdigital.org/specs/ausdigital-bill/1.0/",
+          "MinimumAuthenticationLevel": "2",
+          "ServiceDescription": "TAP-GW Service Endpoint for AusDigital BILL Invoice RCTI documents."
+        }
+      ]
     }
+  ],
+  "DocumentIdentifier": {
+    "scheme": "bdx-docid-qns",
+    "value": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+  },
+  "id": "bdx-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+  "ParticipantIdentifier": {
+    "scheme": "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0151",
+    "value": "99999999529"
   }
+}
 ```
 
 ## Informal description
