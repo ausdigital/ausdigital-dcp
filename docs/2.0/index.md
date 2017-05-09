@@ -106,7 +106,7 @@ The sample below shows a service metadata record example for a business with ABN
 {
   "ProcessList": [{
       "ProcessIdentifier": {
-        "scheme": "digitalbusinesscouncil.com.au",
+        "scheme": "ausdigital.org",
         "value": "bill-invoice-v1"
       },
       "ServiceEndpointList": [{
@@ -123,7 +123,7 @@ The sample below shows a service metadata record example for a business with ABN
       ]
     }, {
       "ProcessIdentifier": {
-        "scheme": "digitalbusinesscouncil.com.au",
+        "scheme": "ausdigital.org",
         "value": "bill-rcti-v1"
       },
       "ServiceEndpointList": [{
