@@ -86,7 +86,7 @@ RFC 2119.
 
 Implementations MUST provide a compliant REST Application Programming Interface.
 
-A draft [REST interface v2.0](http://ausdigital.org/specs/ausdigital-dcp/2.0/api) is available for comment.
+A draft [REST interface v2.0](http://swagger.testpoint.io/?url=http://ausdigital.org/specs/ausdigital-dcp/2.0/swagger.json) is available for comment.
 
 ## Protocol
 
@@ -98,7 +98,7 @@ For open B2B standards to be adopted, users must have confidence in the integrit
 
 This framework operates on the basis that the issuer of a business identifier is best positioned to verify the identity of anyone attempting to authorise an update to the metadata registry. That is why for example we are proposing the `ausdigital-dcl/2` for the Australian Business Number (ABN) should be operated by the Australian Business Register (ABR).
 
-The Digital Capability Publisher is functionally equivalent to a REST version of the European OASIS standard "Service Metadata Publisher". Users are expected to have used the `ausdigital-dcl/2` to discover the appropriate DCP service for a particular business. They then interact with the DCP using the REST protocol [documented here](http://ausdigital.org/specs/ausdigital-dcp/2.0/api) to access a collection of ServiceMetadata entries for the business.
+The Digital Capability Publisher is functionally equivalent to a REST version of the European OASIS standard "Service Metadata Publisher". Users are expected to have used the `ausdigital-dcl/2` to discover the appropriate DCP service for a particular business. They then interact with the DCP using the REST protocol [documented here](http://swagger.testpoint.io/?url=http://ausdigital.org/specs/ausdigital-dcp/2.0/swagger.json) to access a collection of ServiceMetadata entries for the business.
 
 The sample below shows a service metadata record example for a business with ABN 99999999529 that supports both standard invoice and RCTI processes. Fields will be explained in this document later.
 
